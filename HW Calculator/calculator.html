@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      class Calculator {
+        constructor() {
+          this.numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+          this.operations = ["+", "-", "*", "/", "="];
+        }
+
+        calculate(e) {
+          if (e.target.innerText !== "=") this.inp.value += e.target.innerText;
+          else {
+            this.inp.value = eval(this.inp.value);
+          }
+          if (e.target.innerText == "C") this.inp.value = "";
+        }
+
+        /* cancel() {
+          this.inp.value = "";
+        }
+        result() {} */
+
+        render(containerId) {
+          const container = document.getElementById(containerId);
+          let div = document.createElement("div");
+          this.inp = document.createElement("input");
+          this.inp.type = "string";
+          this.c = document.createElement("button");
+          this.c.innerText = "C";
+          div.appendChild(this.inp);
+          div.appendChild(this.c);
+
+          container.appendChild(div);
+          div = document.createElement("div");
+          this.numbers.forEach((el) => {
+            const btnNumb = document.createElement("button");
+            btnNumb.innerText = el;
+            div.appendChild(btnNumb);
+          });
+          container.appendChild(div);
+          div = document.createElement("div");
+          this.operations.forEach((el) => {
+            const btnOperation = document.createElement("button");
+            btnOperation.innerText = el;
+            div.appendChild(btnOperation);
+          });
+          container.appendChild(div);
+          // this.c.onclick = this.cancel.bind(this);
+          container.onclick = this.calculate.bind(this);
+        }
+      }
+      window.onload = function () {
+        const calc = new Calculator();
+        calc.render("container");
+      };
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
